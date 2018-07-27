@@ -4,13 +4,11 @@ import java.lang.reflect.Method;
 
 public class TestRunner {
 
-    public static void runTest(Class c, Method method, Class<? extends Throwable> expected)
-            throws IllegalAccessException, InstantiationException {
-        Object o = c.newInstance();
+    public static void runTest(Class c, Object instance, Method method, Class<? extends Throwable> expected) {
         try {
-            method.invoke(o, null);
+            method.invoke(instance, null);
         } catch (Throwable exception) {
-            if (exception.getCause().getClass().getName().equals(expected.getName())) {
+            if (exception.getCause().getClass().isAssignableFrom(expected)) {
                 passTest(method);
                 return;
             } else {

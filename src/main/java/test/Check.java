@@ -2,12 +2,16 @@ package test;
 
 public class Check {
 
-    static boolean isTrue(boolean b) {
-        return b;
+    static void isTrue(boolean b) throws CheckError {
+        if (!b) {
+            throw new CheckError("Expected output to be true but was false");
+        }
     }
 
-    static boolean isFalse(boolean b) {
-        return !b;
+    static void isFalse(boolean b) throws CheckError {
+        if (!b) {
+            throw new CheckError("Expected output to be false but was false");
+        }
     }
 
 }
