@@ -11,8 +11,17 @@ public class FooTest {
     }
 
     @TestMethod
-    public void test() {
+    public void testPass() {
 
     }
 
+    @TestMethod
+    public void testFail() {
+
+    }
+
+    @TestMethod(expected = NullPointerException.class)
+    public void testExpectedException() {
+
+    }
 }

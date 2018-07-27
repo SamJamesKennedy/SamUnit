@@ -23,13 +23,15 @@ public class UseTestClass {
     static void runTests(Class<?> classToTest) {
         for (Method method : classToTest.getMethods()) {
             if (method.isAnnotationPresent(TestMethod.class)) {
-                System.out.println("I found a method called " + method.getName()
-                        + " in class " + classToTest.getName());
-                runMethod(method);
+                TestMethod annotation = method.getAnnotation(TestMethod.class);
+                String message = "I found a method called " + method.getName()
+                        + " in class " + classToTest.getName();
+                if (!annotation.expected().equals(TestMethod.NoException.class)) {
+                    message += " and it should throw a " + annotation.expected().getName();
+                }
+                System.out.println(message);
+                TestRunner.runTest(method);
             }
         }
-    }
-
-    private static void runMethod(Method method) {
     }
 }

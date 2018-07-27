@@ -9,4 +9,11 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface TestMethod {
 
+    class NoException extends Throwable {
+        private NoException() {
+
+        }
+    }
+
+    Class<? extends Throwable> expected() default NoException.class;
 }
