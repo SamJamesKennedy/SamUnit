@@ -24,13 +24,13 @@ public class UseTestClass {
         for (Method method : classToTest.getMethods()) {
             if (method.isAnnotationPresent(TestMethod.class)) {
                 TestMethod annotation = method.getAnnotation(TestMethod.class);
-                String message = "I found a method called " + method.getName()
-                        + " in class " + classToTest.getName();
-                if (!annotation.expected().equals(TestMethod.NoException.class)) {
-                    message += " and it should throw a " + annotation.expected().getName();
+                try {
+                    TestRunner.runTest(classToTest, method, annotation.expected());
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
                 }
-                System.out.println(message);
-                TestRunner.runTest(method);
             }
         }
     }
