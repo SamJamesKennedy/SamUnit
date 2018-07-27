@@ -1,4 +1,4 @@
-package samunit.annotations;
+package samunit.runners;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -6,12 +6,14 @@ import java.lang.reflect.Method;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
+import samunit.annotations.BeforeEach;
+import samunit.annotations.TestClass;
 
-public class Test {
+public class SamUnit {
 
     private ClassTestRunner classTestRunner;
 
-    public Test() {
+    public SamUnit() {
         classTestRunner = new ClassTestRunner();
     }
     

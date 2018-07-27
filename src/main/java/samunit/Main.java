@@ -2,14 +2,14 @@ package samunit;
 
 import java.io.IOException;
 
-import samunit.annotations.Test;
+import samunit.runners.SamUnit;
 
-public class SamUnit {
+public class Main {
 
     public static void main(String[] args) {
-        Test test = new Test();
+        SamUnit samUnit = new SamUnit();
         try {
-            test.runTests();
+            samUnit.runTests();
         } catch (IOException e) {
             System.out.println("Failed to run tests");
         }

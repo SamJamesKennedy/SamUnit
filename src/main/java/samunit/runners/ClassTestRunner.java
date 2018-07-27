@@ -1,6 +1,8 @@
-package samunit.annotations;
+package samunit.runners;
 
 import java.lang.reflect.Method;
+
+import samunit.annotations.TestMethod;
 
 public class ClassTestRunner {
 
