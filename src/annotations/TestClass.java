@@ -6,7 +6,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface TestMe {
+@Target(ElementType.TYPE)
+/**
+ * Place this annotation on any class containing test methods
+ */
+public @interface TestClass {
 
 }
