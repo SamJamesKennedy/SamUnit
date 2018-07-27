@@ -1,4 +1,4 @@
-package foos;
+package samunit.foos;
 
 public class Foo {
 

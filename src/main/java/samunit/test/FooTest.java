@@ -1,9 +1,9 @@
-package test;
+package samunit.test;
 
-import annotations.Setup;
-import annotations.TestClass;
-import annotations.TestMethod;
-import foos.Foo;
+import samunit.annotations.BeforeEach;
+import samunit.annotations.TestClass;
+import samunit.annotations.TestMethod;
+import samunit.foos.Foo;
 
 @TestClass
 public class FooTest {
@@ -13,7 +13,7 @@ public class FooTest {
     public FooTest() {
     }
 
-    @Setup
+    @BeforeEach
     public void setup() {
         foo = new Foo();
     }

@@ -1,4 +1,4 @@
-package test;
+package samunit.test;
 
 public class CheckError extends Error {
 
