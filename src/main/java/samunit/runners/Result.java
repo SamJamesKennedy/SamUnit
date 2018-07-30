@@ -44,7 +44,7 @@ public class Result {
             result = new Result();
         }
 
-        public Result getInstance() {
+        public Result build() {
             return result;
         }
 

@@ -51,4 +51,10 @@ public class FooTest {
         String message = "I am a foo";
         Check.isTrue(foo.getMessage().equals(message));
     }
+
+    @TestMethod(expected = ArrayIndexOutOfBoundsException.class)
+    public void testExpectsOneExceptionAndGetsAnotherFail() {
+        String message = "I am a foo";
+        Check.isTrue(foo.getMessage().equals(message));
+    }
 }
