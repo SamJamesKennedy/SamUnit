@@ -16,9 +16,9 @@ class TestRunner {
     Result runTest(Object instance, Method method, Class<? extends Throwable> expected) {
         invokeBefores(instance);
         if (expected.isAssignableFrom(TestMethod.NoException.class)) {
-            return getResultWithExpected(instance, method, expected);
-        } else {
             return getResultWithoutExpected(instance, method);
+        } else {
+            return getResultWithExpected(instance, method, expected);
         }
     }
 
@@ -29,7 +29,7 @@ class TestRunner {
             builder.withTestPassed(true);
         } catch (Throwable exception) {
             builder.withTestPassed(false)
-                .withException(exception);
+                .withException(exception.getCause());
         }
         return builder.getInstance();
     }
@@ -38,6 +38,10 @@ class TestRunner {
         Result.ResultBuilder builder = new Result.ResultBuilder().withMethod(method);
         try {
             method.invoke(instance, null);
+            String message = "Expected error: " + expected.getName() + " but no error was thrown.";
+            return builder.withTestPassed(false)
+                    .withException(new AssertionError(message))
+                    .getInstance();
         } catch (Throwable exception) {
             if (exception.getCause().getClass().isAssignableFrom(expected)) {
                 builder.withTestPassed(true);
@@ -47,8 +51,6 @@ class TestRunner {
             }
             return builder.getInstance();
         }
-        return builder.withTestPassed(true)
-                .getInstance();
     }
 
     private void invokeBefores(Object instance) {

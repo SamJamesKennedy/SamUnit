@@ -26,7 +26,7 @@ public class BarTest {
 
     @TestMethod
     public void testPasses() {
-        Check.isTrue(bar.getMessage().equals("I am a bar"));
+        Check.isFalse(bar.getMessage().equals("I am a foo"));
     }
 
     @TestMethod
