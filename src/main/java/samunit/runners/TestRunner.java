@@ -26,9 +26,9 @@ class TestRunner {
         Result.ResultBuilder builder = new Result.ResultBuilder().withMethod(method);
         try {
             method.invoke(instance, null);
-            builder.withStatus(true);
+            builder.withTestPassed(true);
         } catch (Throwable exception) {
-            builder.withStatus(false)
+            builder.withTestPassed(false)
                 .withException(exception);
         }
         return builder.getInstance();
@@ -40,14 +40,14 @@ class TestRunner {
             method.invoke(instance, null);
         } catch (Throwable exception) {
             if (exception.getCause().getClass().isAssignableFrom(expected)) {
-                builder.withStatus(true);
+                builder.withTestPassed(true);
             } else {
-                builder.withStatus(false)
+                builder.withTestPassed(false)
                     .withException(exception.getCause());
             }
             return builder.getInstance();
         }
-        return builder.withStatus(true)
+        return builder.withTestPassed(true)
                 .getInstance();
     }
 

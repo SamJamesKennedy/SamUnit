@@ -48,8 +48,8 @@ public class Result {
             return result;
         }
 
-        public ResultBuilder withStatus(boolean status) {
-            result.setTestPassed(status);
+        public ResultBuilder withTestPassed(boolean testPassed) {
+            result.setTestPassed(testPassed);
             return this;
         }
 
