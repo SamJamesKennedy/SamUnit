@@ -40,6 +40,13 @@ public class FooTest {
     }
 
     @TestMethod(expected = NullPointerException.class)
+    public void testFailsExpectedExceptionNotThrown() {
+        String message = "I am a foo";
+        foo.setMessage(message);
+        Check.isTrue(foo.getMessage().equals(message));
+    }
+
+    @TestMethod(expected = NullPointerException.class)
     public void testExpectedException() {
         String message = "I am a foo";
         Check.isTrue(foo.getMessage().equals(message));

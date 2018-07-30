@@ -2,12 +2,16 @@ package samunit.runners;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
 import samunit.annotations.BeforeEach;
 import samunit.annotations.TestClass;
+import samunit.annotations.TestMethod;
 
 public class SamUnit {
 
@@ -20,23 +24,17 @@ public class SamUnit {
     public void runTests() throws IOException {
         ClassPath classPath = ClassPath.from(Thread.currentThread().getContextClassLoader());
         ImmutableSet<ClassInfo> classes = classPath.getTopLevelClasses("samunit.test");
-        for (ClassInfo classInfo : classes) {
-            if (classInfo.load().isAnnotationPresent(TestClass.class)) {
-                Class<?> classToTest = classInfo.load();
-                testClass(classToTest);
-            }
-        }
+        classes.stream().map(ClassInfo::load)
+            .filter(c -> c.isAnnotationPresent(TestClass.class))
+            .forEach(this::testClass);
     }
 
     private void testClass(Class<?> classToTest) {
-        if (classToTest.isAnnotationPresent(TestClass.class)) {
-            for (Method method : classToTest.getMethods()) {
-                if (method.isAnnotationPresent(BeforeEach.class)) {
-                    classTestRunner.setBefore(method);
-                }
-            }
-            classTestRunner.runTests(classToTest);
-        }
+        classTestRunner.clearBefores();
+        List<Method> befores = Arrays.stream(classToTest.getMethods())
+            .filter(m -> m.isAnnotationPresent(BeforeEach.class))
+            .collect(Collectors.toList());
+        classTestRunner.setBefores(befores);
+        classTestRunner.runTests(classToTest);
     }
-
 }
