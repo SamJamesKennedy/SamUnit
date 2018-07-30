@@ -5,15 +5,15 @@ import java.util.List;
 
 import samunit.annotations.TestMethod;
 
-public class TestRunner {
+class TestRunner {
 
     List<Method> befores;
 
-    public TestRunner(List<Method> befores) {
+    TestRunner(List<Method> befores) {
         this.befores = befores;
     }
 
-    public Result runTest(Object instance, Method method, Class<? extends Throwable> expected) {
+    Result runTest(Object instance, Method method, Class<? extends Throwable> expected) {
         invokeBefores(instance);
         if (expected.isAssignableFrom(TestMethod.NoException.class)) {
             return getResultWithExpected(instance, method, expected);

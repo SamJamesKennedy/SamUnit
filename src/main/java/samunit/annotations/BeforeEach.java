@@ -9,4 +9,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface BeforeEach {
 
+    int priority() default Integer.MAX_VALUE;
+
 }

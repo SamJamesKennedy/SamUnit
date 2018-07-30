@@ -14,22 +14,23 @@ public class BarTest {
     public BarTest() {
     }
 
-    @BeforeEach
+    @BeforeEach(priority = 0)
     public void setup() {
         bar = new Bar();
     }
 
+    @BeforeEach(priority = 1)
+    public void setMessage() {
+        bar.setMessage("I am a bar");
+    }
+
     @TestMethod
     public void testPasses() {
-        String message = "I am a bar";
-        bar.setMessage(message);
-        Check.isTrue(bar.getMessage().equals(message));
+        Check.isTrue(bar.getMessage().equals("I am a bar"));
     }
 
     @TestMethod
     public void testFails() {
-        String message = "I am a bar";
-        bar.setMessage(message);
         Check.isTrue(bar.getMessage().equals("I am a foo"));
     }
 }

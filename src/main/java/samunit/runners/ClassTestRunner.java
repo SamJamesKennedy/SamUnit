@@ -12,19 +12,19 @@ public class ClassTestRunner {
 
     List<Method> befores;
 
-    public ClassTestRunner() {
+    ClassTestRunner() {
         befores = new ArrayList<>();
     }
 
-    public void setBefores(List<Method> befores) {
+    void setBefores(List<Method> befores) {
         this.befores = befores;
     }
 
-    public void clearBefores() {
+    void clearBefores() {
         befores.clear();
     }
 
-    public void runTests(Class<?> classToTest) {
+    void runTests(Class<?> classToTest) {
         TestRunner testRunner = new TestRunner(befores);
         Object instance;
         try {
