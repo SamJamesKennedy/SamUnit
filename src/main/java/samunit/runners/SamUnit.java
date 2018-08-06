@@ -29,9 +29,13 @@ public class SamUnit {
         classTestRunner.clearBefores();
         List<Method> befores = Arrays.stream(classToTest.getMethods())
             .filter(m -> m.isAnnotationPresent(BeforeEach.class))
-            .sorted(Comparator.comparing(m -> m.getAnnotation(BeforeEach.class).priority()))
+            .sorted(Comparator.comparing(SamUnit::getMethodPriority))
             .collect(Collectors.toList());
         classTestRunner.setBefores(befores);
         classTestRunner.runTests(classToTest);
+    }
+
+    private static Integer getMethodPriority(Method m) {
+        return m.getAnnotation(BeforeEach.class).priority();
     }
 }
