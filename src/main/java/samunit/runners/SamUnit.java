@@ -15,21 +15,17 @@ import samunit.annotations.TestClass;
 
 public class SamUnit {
 
-    private ClassTestRunner classTestRunner;
-
-    public SamUnit() {
-        classTestRunner = new ClassTestRunner();
-    }
+    private static ClassTestRunner classTestRunner = new ClassTestRunner();
     
-    public void runTests() throws IOException {
+    public static void main(String[] args) throws IOException {
         ClassPath classPath = ClassPath.from(Thread.currentThread().getContextClassLoader());
         ImmutableSet<ClassInfo> classes = classPath.getTopLevelClasses("samunit.test");
         classes.stream().map(ClassInfo::load)
             .filter(c -> c.isAnnotationPresent(TestClass.class))
-            .forEach(this::testClass);
+            .forEach(SamUnit::testClass);
     }
 
-    private void testClass(Class<?> classToTest) {
+    private static void testClass(Class<?> classToTest) {
         classTestRunner.clearBefores();
         List<Method> befores = Arrays.stream(classToTest.getMethods())
             .filter(m -> m.isAnnotationPresent(BeforeEach.class))
